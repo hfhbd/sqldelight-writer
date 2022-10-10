@@ -1,5 +1,7 @@
 public class Migration(
-    public val version: Int, override val content: String, override val packageName: String
+    public val version: Int,
+    override val content: String,
+    override val packageName: String
 ) : SqFile {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

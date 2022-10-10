@@ -40,14 +40,12 @@ licensee {
     allow("Apache-2.0")
 }
 
-val emptyJar by tasks.creating(Jar::class) { }
-
 publishing {
+    publications.register<MavenPublication>("mavenJava") {
+        from(components["java"])
+    }
     publications.all {
         this as MavenPublication
-        artifact(emptyJar) {
-            classifier = "javadoc"
-        }
         pom {
             name.set("app.softwork SqlDelight Writer")
             description.set("A jvm library to create SqlDelight Files")

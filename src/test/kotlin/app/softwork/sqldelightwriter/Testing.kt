@@ -1,3 +1,5 @@
+package app.softwork.sqldelightwriter
+
 import java.io.*
 import java.nio.file.*
 import kotlin.test.*

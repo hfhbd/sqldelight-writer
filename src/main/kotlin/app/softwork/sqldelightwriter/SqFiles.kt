@@ -1,3 +1,5 @@
+package app.softwork.sqldelightwriter
+
 import java.io.*
 
 public data class SqFiles(val migrations: Set<Migration>, val queries: Set<Query>) {
@@ -9,20 +11,20 @@ public data class SqFiles(val migrations: Set<Migration>, val queries: Set<Query
     )
 
     public fun writeTo(folder: File) {
-        fun SqFile.createPackageFolder(): File {
-            val packageName = packageName.replace(".", "/")
-            val packageFolder = File(folder, packageName)
-            packageFolder.mkdirs()
-            return packageFolder
-        }
-
         for (migration in migrations) {
-            val file = File(migration.createPackageFolder(), "${migration.version}.sqm")
+            val file = File(migration.createPackageFolder(folder), "${migration.version}.sqm")
             file.writeText(migration.content)
         }
         for (query in queries) {
-            val file = File(query.createPackageFolder(), "${query.name}.sq")
+            val file = File(query.createPackageFolder(folder), "${query.name}.sq")
             file.writeText(query.content)
         }
+    }
+
+    private fun SqFile.createPackageFolder(folder: File): File {
+        val packageName = packageName.replace(".", "/")
+        val packageFolder = File(folder, packageName)
+        packageFolder.mkdirs()
+        return packageFolder
     }
 }

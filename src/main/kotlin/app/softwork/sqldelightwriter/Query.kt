@@ -1,5 +1,7 @@
-public class Migration(
-    public val version: Int,
+package app.softwork.sqldelightwriter
+
+public class Query(
+    public val name: String,
     override val content: String,
     override val packageName: String
 ) : SqFile {
@@ -7,16 +9,16 @@ public class Migration(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Migration
+        other as Query
 
-        if (version != other.version) return false
+        if (name != other.name) return false
         if (packageName != other.packageName) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = version
+        var result = name.hashCode()
         result = 31 * result + packageName.hashCode()
         return result
     }

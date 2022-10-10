@@ -6,7 +6,7 @@ import kotlin.test.*
 
 class SimpleTest {
     @Test
-    fun simpleTest() {
+    fun queries() {
         val (_, queries) = writeSq("sample") {
             queryFile(name = "Sql") {
                 +"""

@@ -8,19 +8,20 @@ public data class SqFiles(val migrations: Set<Migration>, val queries: Set<Query
         migrations = new.migrations + migrations, queries = new.queries + queries
     )
 
-    public fun writeTo(file: File) {
-        for (migration in migrations) {
-            val packageName = migration.packageName.replace(".", "/")
-            val packageFolder = File(file, packageName)
+    public fun writeTo(folder: File) {
+        fun SqFile.createPackageFolder(): File {
+            val packageName = packageName.replace(".", "/")
+            val packageFolder = File(folder, packageName)
             packageFolder.mkdirs()
-            val file = File(packageFolder, "${migration.version}.sqm")
+            return packageFolder
+        }
+
+        for (migration in migrations) {
+            val file = File(migration.createPackageFolder(), "${migration.version}.sqm")
             file.writeText(migration.content)
         }
         for (query in queries) {
-            val packageName = query.packageName.replace(".", "/")
-            val packageFolder = File(file, packageName)
-            packageFolder.mkdirs()
-            val file = File(packageFolder, "${query.name}.sq")
+            val file = File(query.createPackageFolder(), "${query.name}.sq")
             file.writeText(query.content)
         }
     }

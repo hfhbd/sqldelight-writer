@@ -15,9 +15,7 @@ public class SqWriter internal constructor(
 
         this.queries.add(
             Query(
-                name = name,
-                packageName = packageName,
-                content = queryFile.toString()
+                name = name, packageName = packageName, content = queryFile.toString()
             )
         )
     }
@@ -47,7 +45,7 @@ public class SqWriter internal constructor(
             }
 
             for ((id, content) in queries) {
-                if (length != 0) {
+                if (isNotEmpty()) {
                     appendLine()
                 }
                 append(id)
@@ -56,8 +54,8 @@ public class SqWriter internal constructor(
                     appendLine(content.single())
                 } else {
                     appendLine(" {")
-                    for (content in content) {
-                        appendLine(content)
+                    for (contentLine in content) {
+                        appendLine(contentLine)
                     }
                     appendLine('}')
                 }
@@ -81,16 +79,21 @@ public class SqWriter internal constructor(
     @SqDsl
     public class SqMigrationFile internal constructor() {
         private val content = mutableListOf<String>()
+
         public operator fun String.unaryPlus() {
             content += this
         }
 
-        override fun toString(): String = content.joinToString(separator = "\n\n", postfix = "\n")
+        override fun toString(): String = content.joinToString(
+            separator = "${System.lineSeparator()}${System.lineSeparator()}",
+            postfix = System.lineSeparator()
+        )
     }
 
     @SqDsl
     public class SqQuery internal constructor() {
         private val statements = mutableListOf<String>()
+
         public operator fun String.unaryPlus() {
             statements += this
         }
@@ -104,6 +107,7 @@ public fun writeSq(packageName: String, body: SqWriter.() -> Unit): SqFiles {
     val writer = SqWriter(packageName)
     writer.body()
     return SqFiles(
-        migrations = writer.migrations, queries = writer.queries
+        migrations = writer.migrations,
+        queries = writer.queries
     )
 }

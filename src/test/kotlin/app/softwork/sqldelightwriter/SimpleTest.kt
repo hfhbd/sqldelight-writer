@@ -4,11 +4,17 @@ import java.io.*
 import java.nio.file.*
 import kotlin.test.*
 
-class Testing {
+class SimpleTest {
     @Test
-    fun simpleTest() {
+    fun queries() {
         val (_, queries) = writeSq("sample") {
             queryFile(name = "Sql") {
+                +"""
+                |CREATE TABLE foo(
+                |id INTEGER
+                |);
+                """.trimMargin()
+
                 +"""
                 |CREATE TABLE bar(
                 |id INTEGER
@@ -29,6 +35,10 @@ class Testing {
 
         assertEquals(
             """
+            |CREATE TABLE foo(
+            |id INTEGER
+            |);
+            |
             |CREATE TABLE bar(
             |id INTEGER
             |);
@@ -110,7 +120,7 @@ class Testing {
             }
         }
 
-        assertEquals("Query identifier get already defined in Sql.sq", exception.message)
+        assertEquals("Query identifier get already defined in Sql.sq in package sample", exception.message)
     }
 
     @Test

@@ -1,7 +1,10 @@
 package app.softwork.sqldelightwriter
 
 @SqDsl
-public class SqMigrationFile {
+public class SqMigrationFile(
+    public val version: Int,
+    override val packageName: String
+) : SqFile {
     private val content = mutableListOf<String>()
 
     public operator fun String.unaryPlus() {

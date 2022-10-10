@@ -2,25 +2,25 @@ package app.softwork.sqldelightwriter
 
 @SqDsl
 public class SqWriter(
-    private val packageName: String
+    private val packageName: String,
+    existing: SqFiles? = null
 ) {
-    internal val migrations = mutableSetOf<Migration>()
-    internal val queries = mutableSetOf<Query>()
+    internal val migrationFiles = existing?.migrations?.toMutableSet() ?: mutableSetOf()
+    internal val queryFiles = existing?.queries?.toMutableSet() ?: mutableSetOf()
 
     @SqDsl
     public fun queryFile(name: String, packageName: String = this.packageName, queries: SqQueryFile.() -> Unit) {
-        check(Query(name, content = "", packageName) !in this.queries) {
-            "File $name.sq already defined in package $packageName"
+
+        val exists = this.queryFiles.find {
+            it.fileName == name && it.packageName == packageName
         }
-
-        val queryFile = SqQueryFile(name)
-        queryFile.queries()
-
-        this.queries.add(
-            Query(
-                name = name, packageName = packageName, content = queryFile.toString()
-            )
-        )
+        if (exists != null) {
+            exists.queries()
+        } else {
+            val queryFile = SqQueryFile(name, packageName)
+            queryFile.queries()
+            queryFiles.add(queryFile)
+        }
     }
 
     @SqDsl
@@ -29,18 +29,16 @@ public class SqWriter(
         packageName: String = this.packageName,
         migration: SqMigrationFile.() -> Unit
     ) {
-        check(Migration(version, content = "", packageName) !in this.migrations) {
-            "File $version.sqm already defined in package $packageName"
+        val exists = migrationFiles.find {
+            it.version == version && it.packageName == packageName
         }
 
-        val file = SqMigrationFile()
-        file.migration()
-        migrations.add(
-            Migration(
-                version = version,
-                content = file.toString(),
-                packageName = packageName
-            )
-        )
+        if (exists != null) {
+            exists.migration()
+        } else {
+            val file = SqMigrationFile(version, packageName)
+            file.migration()
+            migrationFiles.add(file)
+        }
     }
 }

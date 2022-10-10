@@ -1,14 +1,19 @@
 package app.softwork.sqldelightwriter
 
 @SqDsl
-public class SqQueryFile(private val fileName: String) {
+public class SqQueryFile(
+    public val fileName: String,
+    override val packageName: String
+) : SqFile {
     private val topLevel = mutableListOf<String>()
     private val queries = mutableMapOf<String, SqQuery>()
+
+    public val queryNames: Set<String> get() = queries.keys
 
     @SqDsl
     public fun query(name: String, query: SqQuery.() -> Unit) {
         check(name !in queries) {
-            "Query identifier $name already defined in $fileName.sq"
+            "Query identifier $name already defined in $fileName.sq in package $packageName"
         }
         val statements = SqQuery(name)
         statements.query()
@@ -21,6 +26,9 @@ public class SqQueryFile(private val fileName: String) {
 
     override fun toString(): String = buildString {
         for (topLevel in topLevel) {
+            if (isNotEmpty()) {
+                appendLine()
+            }
             appendLine(topLevel)
         }
 

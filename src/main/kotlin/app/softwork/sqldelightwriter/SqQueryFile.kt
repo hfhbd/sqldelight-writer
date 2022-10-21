@@ -11,11 +11,16 @@ public class SqQueryFile(
     public val queryNames: Set<String> get() = queries.keys
 
     @SqDsl
-    public fun query(name: String, query: SqQuery.() -> Unit) {
+    public fun query(name: String, vararg kdoc: String, query: SqQuery.() -> Unit) {
+        query(name, kdoc.toList(), query)
+    }
+
+    @SqDsl
+    public fun query(name: String, kdoc: List<String>, query: SqQuery.() -> Unit) {
         check(name !in queries) {
             "Query identifier $name already defined in $fileName.sq in package $packageName"
         }
-        val statements = SqQuery(name)
+        val statements = SqQuery(name, kdoc)
         statements.query()
         queries[name] = statements
     }

@@ -1,7 +1,7 @@
 package app.softwork.sqldelightwriter
 
 @SqDsl
-public class SqQuery(private val name: String) {
+public class SqQuery(private val name: String, private val kDoc: List<String>) {
     private val statements = mutableListOf<String>()
 
     public operator fun String.unaryPlus() {
@@ -9,6 +9,15 @@ public class SqQuery(private val name: String) {
     }
 
     override fun toString(): String = buildString {
+        if (kDoc.isNotEmpty()) {
+            appendLine("/**")
+        }
+        for (doc in kDoc) {
+            appendLine(" * $doc")
+        }
+        if (kDoc.isNotEmpty()) {
+            appendLine(" */")
+        }
         append(name)
         if (statements.size == 1) {
             appendLine(':')

@@ -21,7 +21,7 @@ class SimpleTest {
                 |);
                 """.trimMargin()
 
-                query(name = "get") {
+                query(name = "get", "TEST DOC", "TEST DOC II") {
                     +"""
                     |SELECT * FROM bar;
                     """.trimMargin()
@@ -43,6 +43,10 @@ class SimpleTest {
             |id INTEGER
             |);
             |
+            |/**
+            | * TEST DOC
+            | * TEST DOC II
+            | */
             |get:
             |SELECT * FROM bar;
             |

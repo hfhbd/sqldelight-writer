@@ -2,7 +2,7 @@ import io.gitlab.arturbosch.detekt.*
 import java.util.*
 
 plugins {
-    kotlin("jvm") version "1.7.20"
+    kotlin("jvm") version "1.7.21"
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"

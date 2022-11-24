@@ -1,33 +1,9 @@
-comments:
-  severity: "error"
-
-complexity:
-  severity: "error"
-
-coroutines:
-  severity: "error"
-
-empty-blocks:
-  severity: "error"
-
-exceptions:
-  severity: "error"
-
 formatting:
-  severity: "error"
   NoWildcardImports:
     active: false
-
-naming:
-  severity: "error"
-
-performance:
-  severity: "error"
-
-potential-bugs:
-  severity: "error"
+  Filename:
+    active: false
 
 style:
-  severity: "error"
   WildcardImport:
     active: false

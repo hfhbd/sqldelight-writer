@@ -8,7 +8,8 @@ public data class SqFiles(val migrations: Set<SqMigrationFile>, val queries: Set
      * Use [writeSq] if you want to extend them.
      */
     public operator fun plus(new: SqFiles): SqFiles = SqFiles(
-        migrations = new.migrations + migrations, queries = new.queries + queries
+        migrations = new.migrations + migrations,
+        queries = new.queries + queries
     )
 
     public fun writeTo(folder: File) {

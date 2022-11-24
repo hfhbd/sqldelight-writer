@@ -10,7 +10,6 @@ public class SqWriter(
 
     @SqDsl
     public fun queryFile(name: String, packageName: String = this.packageName, queries: SqQueryFile.() -> Unit) {
-
         val exists = this.queryFiles.find {
             it.fileName == name && it.packageName == packageName
         }

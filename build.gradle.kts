@@ -93,6 +93,11 @@ nexusPublishing {
     }
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 detekt {
     source = files(rootProject.rootDir)
     parallel = true

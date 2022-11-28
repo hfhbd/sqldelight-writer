@@ -8,7 +8,7 @@ public class SqMigrationFile(
     private val content = mutableListOf<String>()
 
     public operator fun String.unaryPlus() {
-        content += this
+        content += if (endsWith(";")) this else "$this;"
     }
 
     override fun toString(): String = content.joinToString(

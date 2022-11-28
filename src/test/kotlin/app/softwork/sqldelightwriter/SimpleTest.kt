@@ -23,7 +23,7 @@ class SimpleTest {
 
                 query(name = "get", "TEST DOC", "TEST DOC II") {
                     +"""
-                    |SELECT * FROM bar;
+                    |SELECT * FROM bar
                     """.trimMargin()
                 }
                 query("multi") {

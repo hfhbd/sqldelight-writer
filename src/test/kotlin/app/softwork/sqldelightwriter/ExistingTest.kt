@@ -10,7 +10,7 @@ class ExistingTest {
                 +"""
                 |CREATE TABLE foo(
                 |id INTEGER
-                |);
+                |)
                 """.trimMargin()
             }
         }

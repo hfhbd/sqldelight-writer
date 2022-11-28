@@ -5,7 +5,7 @@ public class SqQuery(private val name: String, private val kDoc: List<String>) {
     private val statements = mutableListOf<String>()
 
     public operator fun String.unaryPlus() {
-        statements += this
+        statements += if (endsWith(";")) this else "$this;"
     }
 
     override fun toString(): String = buildString {

@@ -1,5 +1,4 @@
 import io.gitlab.arturbosch.detekt.*
-import java.util.*
 
 plugins {
     kotlin("jvm") version "1.7.22"
@@ -9,8 +8,6 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
     id("app.cash.licensee") version "1.6.0"
 }
-
-group = "app.softwork"
 
 repositories {
     mavenCentral()
@@ -72,21 +69,16 @@ publishing {
     }
 }
 
-(System.getProperty("signing.privateKey") ?: System.getenv("SIGNING_PRIVATE_KEY"))?.let {
-    String(Base64.getDecoder().decode(it)).trim()
-}?.let { key ->
-    signing {
-        val signingPassword = System.getProperty("signing.password") ?: System.getenv("SIGNING_PASSWORD")
-        useInMemoryPgpKeys(key, signingPassword)
-        sign(publishing.publications)
-    }
+signing {
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications)
 }
 
 nexusPublishing {
     repositories {
         sonatype {
-            username.set(System.getProperty("sonartype.apiKey") ?: System.getenv("SONARTYPE_APIKEY"))
-            password.set(System.getProperty("sonartype.apiToken") ?: System.getenv("SONARTYPE_APITOKEN"))
             nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
         }

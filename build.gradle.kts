@@ -20,12 +20,12 @@ dependencies {
 kotlin {
     explicitApi()
     target {
-        compilations.all {
+        compilations.configureEach {
             kotlinOptions.allWarningsAsErrors = true
         }
     }
     sourceSets {
-        all {
+        configureEach {
             languageSettings {
                 progressiveMode = true
             }
@@ -38,10 +38,10 @@ licensee {
 }
 
 publishing {
-    publications.register<MavenPublication>("mavenJava") {
+    publications.register<MavenPublication>("maven") {
         from(components["java"])
     }
-    publications.all {
+    publications.configureEach {
         this as MavenPublication
         pom {
             name.set("app.softwork SqlDelight Writer")
@@ -113,7 +113,7 @@ tasks {
     }
     withType<Detekt>().configureEach {
         config()
-
+        autoCorrect = true
         reports {
             sarif.required.set(true)
         }

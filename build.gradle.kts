@@ -38,7 +38,7 @@ licensee {
 }
 
 publishing {
-    publications.register<MavenPublication>("maven") {
+    publications.register<MavenPublication>("mavenJava") {
         from(components["java"])
     }
     publications.all {

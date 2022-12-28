@@ -21,6 +21,7 @@ public final class app/softwork/sqldelightwriter/SqMigrationFile : app/softwork/
 	public fun getPackageName ()Ljava/lang/String;
 	public final fun getVersion ()I
 	public fun hashCode ()I
+	public final fun import ([Ljava/lang/String;)V
 	public fun toString ()Ljava/lang/String;
 	public final fun unaryPlus (Ljava/lang/String;)V
 }
@@ -38,6 +39,7 @@ public final class app/softwork/sqldelightwriter/SqQueryFile : app/softwork/sqld
 	public final fun getFileName ()Ljava/lang/String;
 	public fun getPackageName ()Ljava/lang/String;
 	public final fun getQueryNames ()Ljava/util/Set;
+	public final fun import ([Ljava/lang/String;)V
 	public final fun query (Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
 	public final fun query (Ljava/lang/String;[Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 	public fun toString ()Ljava/lang/String;

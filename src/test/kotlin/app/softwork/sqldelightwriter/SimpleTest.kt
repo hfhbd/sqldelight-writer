@@ -111,7 +111,7 @@ class SimpleTest {
 
     @Test
     fun testNameClash() {
-        val exception = assertFailsWith<IllegalStateException> {
+        val exception = assertFailsWith<IllegalArgumentException> {
             writeSq("sample") {
                 queryFile(name = "Sql") {
                     query(name = "get") {

@@ -7,7 +7,7 @@ import kotlin.test.*
 class SimpleTest {
     @Test
     fun queries() {
-        val (_, queries) = writeSq("sample") {
+        val sqFiles = writeSq("sample") {
             queryFile(name = "Sql") {
                 +"""
                 |CREATE TABLE foo(
@@ -56,13 +56,13 @@ class SimpleTest {
             |}
             |
             """.trimMargin(),
-            queries.single().toString()
+            sqFiles.queries.single().toString()
         )
     }
 
     @Test
     fun testMigration() {
-        val (migration, queries) = writeSq("sample") {
+        val sqFiles = writeSq("sample") {
             migrationFile(version = 1) {
                 +"""
                 |CREATE TABLE foo(
@@ -96,7 +96,7 @@ class SimpleTest {
             |);
             |
             """.trimMargin(),
-            migration.single().toString()
+            sqFiles.migrations.single().toString()
         )
 
         assertEquals(
@@ -105,7 +105,7 @@ class SimpleTest {
             |SELECT * FROM bar;
             |
             """.trimMargin(),
-            queries.single().toString()
+            sqFiles.queries.single().toString()
         )
     }
 

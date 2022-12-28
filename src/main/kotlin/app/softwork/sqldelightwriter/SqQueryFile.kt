@@ -5,6 +5,7 @@ public class SqQueryFile(
     public val fileName: String,
     override val packageName: String
 ) : SqFile {
+    private val imports = mutableListOf<String>()
     private val topLevel = mutableListOf<String>()
     private val queries = mutableMapOf<String, SqQuery>()
 
@@ -17,7 +18,7 @@ public class SqQueryFile(
 
     @SqDsl
     public fun query(name: String, kdoc: List<String>, query: SqQuery.() -> Unit) {
-        check(name !in queries) {
+        require(name !in queries) {
             "Query identifier $name already defined in $fileName.sq in package $packageName"
         }
         val statements = SqQuery(name, kdoc)
@@ -30,11 +31,18 @@ public class SqQueryFile(
     }
 
     override fun toString(): String = buildString {
+        for (import in imports) {
+            if (isNotEmpty()) {
+                appendLine()
+            }
+            append("import ")
+            appendSql(import)
+        }
         for (topLevel in topLevel) {
             if (isNotEmpty()) {
                 appendLine()
             }
-            appendLine(topLevel)
+            appendSql(topLevel)
         }
 
         for ((_, query) in queries) {
@@ -43,5 +51,9 @@ public class SqQueryFile(
             }
             append(query)
         }
+    }
+
+    public fun import(vararg import: String) {
+        imports.addAll(import)
     }
 }

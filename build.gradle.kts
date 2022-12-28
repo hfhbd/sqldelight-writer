@@ -7,7 +7,7 @@ plugins {
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
-    id("app.cash.licensee") version "1.6.0"
+    id("app.cash.licensee") version "1.7.0-SNAPSHOT"
 }
 
 repositories {

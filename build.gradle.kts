@@ -26,6 +26,11 @@ kotlin {
             kotlinOptions.allWarningsAsErrors = true
         }
     }
+
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+    
     sourceSets {
         configureEach {
             languageSettings {

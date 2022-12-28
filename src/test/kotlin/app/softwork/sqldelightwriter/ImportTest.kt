@@ -1,7 +1,5 @@
 package app.softwork.sqldelightwriter
 
-import java.io.*
-import java.nio.file.*
 import kotlin.test.*
 
 class ImportTest {
@@ -9,6 +7,14 @@ class ImportTest {
     fun imports() {
         val sqFiles = writeSq("sample") {
             queryFile(name = "Sql") {
+                import("kotlin.Int")
+                +"""
+                |CREATE TABLE foo(
+                |id INTEGER AS Int
+                |);
+                """.trimMargin()
+            }
+            migrationFile(1) {
                 import("kotlin.Int")
                 +"""
                 |CREATE TABLE foo(
@@ -28,6 +34,18 @@ class ImportTest {
             |
             """.trimMargin(),
             sqFiles.queries.single().toString()
+        )
+
+        assertEquals(
+            """
+            |import kotlin.Int;
+            |
+            |CREATE TABLE foo(
+            |id INTEGER AS Int
+            |);
+            |
+            """.trimMargin(),
+            sqFiles.migrations.single().toString()
         )
     }
 }

@@ -11,16 +11,17 @@ public class SqMigrationFile(
     public fun import(vararg import: String) {
         imports.addAll(import)
     }
-    
+
     public operator fun String.unaryPlus() {
         content += this
     }
 
-    override fun toString(): String = buildString { 
+    override fun toString(): String = buildString {
         for (import in imports) {
             if (isNotEmpty()) {
                 appendLine()
             }
+            append("import ")
             appendSql(import)
         }
         for (content in content) {

@@ -1,0 +1,60 @@
+public abstract interface annotation class app/softwork/sqldelightwriter/SqDsl : java/lang/annotation/Annotation {
+}
+
+public abstract interface class app/softwork/sqldelightwriter/SqFile {
+	public abstract fun getPackageName ()Ljava/lang/String;
+}
+
+public final class app/softwork/sqldelightwriter/SqFiles {
+	public fun <init> (Ljava/util/Set;Ljava/util/Set;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getMigrations ()Ljava/util/Set;
+	public final fun getQueries ()Ljava/util/Set;
+	public fun hashCode ()I
+	public final fun plus (Lapp/softwork/sqldelightwriter/SqFiles;)Lapp/softwork/sqldelightwriter/SqFiles;
+	public final fun writeTo (Ljava/io/File;)V
+}
+
+public final class app/softwork/sqldelightwriter/SqMigrationFile : app/softwork/sqldelightwriter/SqFile {
+	public fun <init> (ILjava/lang/String;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getPackageName ()Ljava/lang/String;
+	public final fun getVersion ()I
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public final fun unaryPlus (Ljava/lang/String;)V
+}
+
+public final class app/softwork/sqldelightwriter/SqQuery {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public final fun unaryPlus (Ljava/lang/String;)V
+}
+
+public final class app/softwork/sqldelightwriter/SqQueryFile : app/softwork/sqldelightwriter/SqFile {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getFileName ()Ljava/lang/String;
+	public fun getPackageName ()Ljava/lang/String;
+	public final fun getQueryNames ()Ljava/util/Set;
+	public final fun query (Ljava/lang/String;Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
+	public final fun query (Ljava/lang/String;[Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public fun toString ()Ljava/lang/String;
+	public final fun unaryPlus (Ljava/lang/String;)V
+}
+
+public final class app/softwork/sqldelightwriter/SqWriter {
+	public fun <init> (Ljava/lang/String;Lapp/softwork/sqldelightwriter/SqFiles;)V
+	public synthetic fun <init> (Ljava/lang/String;Lapp/softwork/sqldelightwriter/SqFiles;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun migrationFile (ILjava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun migrationFile$default (Lapp/softwork/sqldelightwriter/SqWriter;ILjava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public final fun queryFile (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun queryFile$default (Lapp/softwork/sqldelightwriter/SqWriter;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+}
+
+public final class app/softwork/sqldelightwriter/WriteSqKt {
+	public static final fun writeSq (Ljava/lang/String;Lapp/softwork/sqldelightwriter/SqFiles;Lkotlin/jvm/functions/Function1;)Lapp/softwork/sqldelightwriter/SqFiles;
+	public static synthetic fun writeSq$default (Ljava/lang/String;Lapp/softwork/sqldelightwriter/SqFiles;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lapp/softwork/sqldelightwriter/SqFiles;
+}
+

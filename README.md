@@ -28,9 +28,11 @@ val files = writeSq(packageName = "sample") {
         """.trimMargin()
     }
     queryFile(name = "Sql") {
+        import("kotlin.Int")
+
         +"""
         |CREATE TABLE bar(
-        |id INTEGER
+        |id INTEGER AS Int
         |);
         """.trimMargin()
 

@@ -1,4 +1,5 @@
 import io.gitlab.arturbosch.detekt.*
+import java.util.*
 
 plugins {
     kotlin("jvm") version "1.8.0"
@@ -72,7 +73,7 @@ publishing {
 signing {
     val signingKey: String? by project
     val signingPassword: String? by project
-    useInMemoryPgpKeys(signingKey, signingPassword)
+    useInMemoryPgpKeys(signingKey?.let { String(Base64.getDecoder().decode(it)).trim() }, signingPassword)
     sign(publishing.publications)
 }
 

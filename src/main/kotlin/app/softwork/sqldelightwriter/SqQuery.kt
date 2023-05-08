@@ -38,9 +38,7 @@ public class SqQuery(private val name: String, private val kDoc: List<String>) {
         other as SqQuery
 
         if (name != other.name) return false
-        if (statements != other.statements) return false
-
-        return true
+        return statements == other.statements
     }
 
     override fun hashCode(): Int {

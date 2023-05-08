@@ -3,8 +3,8 @@ import java.util.*
 
 plugins {
     kotlin("jvm") version "1.8.21"
-    `maven-publish`
-    signing
+    id("maven-publish")
+    id("signing")
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.1"
@@ -26,10 +26,7 @@ kotlin {
             kotlinOptions.allWarningsAsErrors = true
         }
     }
-
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
+    jvmToolchain(11)
     
     sourceSets {
         configureEach {
@@ -104,7 +101,7 @@ detekt {
 }
 
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
 }
 
 tasks {

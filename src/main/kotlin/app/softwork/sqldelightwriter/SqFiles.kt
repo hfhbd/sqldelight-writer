@@ -37,9 +37,7 @@ public class SqFiles(public val migrations: Set<SqMigrationFile>, public val que
         other as SqFiles
 
         if (migrations != other.migrations) return false
-        if (queries != other.queries) return false
-
-        return true
+        return queries == other.queries
     }
 
     override fun hashCode(): Int {

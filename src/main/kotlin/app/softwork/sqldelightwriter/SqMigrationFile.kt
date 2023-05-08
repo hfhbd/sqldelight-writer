@@ -38,9 +38,7 @@ public class SqMigrationFile(
 
         other as SqMigrationFile
 
-        if (content != other.content) return false
-
-        return true
+        return content == other.content
     }
 
     override fun hashCode(): Int = content.hashCode()

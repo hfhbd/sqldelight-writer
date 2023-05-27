@@ -81,7 +81,7 @@ signing {
 }
 
 nexusPublishing {
-    repositories {
+    this.repositories {
         sonatype {
             nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
@@ -95,7 +95,7 @@ java {
 }
 
 detekt {
-    source = files(rootProject.rootDir)
+    source.from(files(rootProject.rootDir))
     parallel = true
     buildUponDefaultConfig = true
 }

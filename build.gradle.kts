@@ -11,10 +11,6 @@ plugins {
     id("app.cash.licensee") version "1.7.0"
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     testImplementation(kotlin("test"))
 }
@@ -26,7 +22,7 @@ kotlin {
             kotlinOptions.allWarningsAsErrors = true
         }
     }
-    jvmToolchain(11)
+    jvmToolchain(8)
     
     sourceSets {
         configureEach {

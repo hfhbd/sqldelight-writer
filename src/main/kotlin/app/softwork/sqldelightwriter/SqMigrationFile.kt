@@ -2,7 +2,7 @@ package app.softwork.sqldelightwriter
 
 @SqDsl
 public class SqMigrationFile(
-    public val version: Int,
+    public val version: Long,
     override val packageName: String
 ) : SqFile {
     private val imports = mutableListOf<String>()

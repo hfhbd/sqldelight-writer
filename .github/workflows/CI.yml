@@ -25,3 +25,7 @@ jobs:
         if: success()
         with:
           sarif_file: build/reports/detekt/detekt.sarif
+      - name: Generate dependency graph
+        uses: gradle/gradle-build-action/actions/dependency-graph-generate@main
+      - name: Submit dependency graph
+        uses: gradle/gradle-build-action/actions/dependency-graph-submit@main

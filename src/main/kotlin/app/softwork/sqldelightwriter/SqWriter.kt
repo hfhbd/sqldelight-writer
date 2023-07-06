@@ -24,7 +24,7 @@ public class SqWriter(
 
     @SqDsl
     public fun migrationFile(
-        version: Int,
+        version: Long,
         packageName: String = this.packageName,
         migration: SqMigrationFile.() -> Unit
     ) {

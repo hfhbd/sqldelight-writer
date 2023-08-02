@@ -5,12 +5,15 @@ on:
     types: [ created ]
 
 concurrency:
-  group: "mavenCentral"
+  group: "cd"
   cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      GRADLE_OPTS: -Dorg.gradle.caching=true
 
     environment:
       name: CD
@@ -23,7 +26,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       - name: Publish
-        run: ./gradlew -Pversion=$version -Dorg.gradle.parallel=false -Dorg.gradle.unsafe.configuration-cache=false -Dorg.gradle.unsafe.isolated-projects=false publish closeAndReleaseStagingRepository
+        run: ./gradlew -Pversion=$version -Dorg.gradle.parallel=false --no-configuration-cache publish closeAndReleaseStagingRepository
         env:
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}

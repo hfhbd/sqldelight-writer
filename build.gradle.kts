@@ -8,7 +8,7 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.4"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.14.0"
-    id("app.cash.licensee") version "1.8.0"
+    id("app.cash.licensee") version "1.9.0"
 }
 
 dependencies {

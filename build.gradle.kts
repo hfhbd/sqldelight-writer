@@ -16,20 +16,12 @@ dependencies {
 }
 
 kotlin {
-    explicitApi()
-    target {
-        compilations.configureEach {
-            kotlinOptions.allWarningsAsErrors = true
-        }
-    }
     jvmToolchain(8)
-    
-    sourceSets {
-        configureEach {
-            languageSettings {
-                progressiveMode = true
-            }
-        }
+
+    explicitApi()
+    compilerOptions {
+        allWarningsAsErrors.set(true)
+        progressiveMode.set(true)
     }
 }
 

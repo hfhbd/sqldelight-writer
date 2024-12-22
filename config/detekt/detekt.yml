@@ -1,9 +1,0 @@
-formatting:
-  NoWildcardImports:
-    active: false
-  Filename:
-    active: false
-
-style:
-  WildcardImport:
-    active: false

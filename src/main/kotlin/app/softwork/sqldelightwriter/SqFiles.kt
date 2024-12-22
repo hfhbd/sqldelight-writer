@@ -1,6 +1,6 @@
 package app.softwork.sqldelightwriter
 
-import java.io.*
+import java.io.File
 
 public class SqFiles(public val migrations: Set<SqMigrationFile>, public val queries: Set<SqQueryFile>) {
     /**

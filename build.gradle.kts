@@ -1,11 +1,8 @@
-import io.gitlab.arturbosch.detekt.*
-import java.util.*
-
 plugins {
     kotlin("jvm") version "2.1.0"
     id("maven-publish")
     id("signing")
-    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+    id("io.github.hfhbd.mavencentral") version "0.0.15"
     id("io.gitlab.arturbosch.detekt") version "1.23.7"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.17.0"
     id("app.cash.licensee") version "1.12.0"
@@ -62,18 +59,10 @@ publishing {
 }
 
 signing {
-    val signingKey: String? by project
-    val signingPassword: String? by project
-    useInMemoryPgpKeys(signingKey?.let { String(Base64.getDecoder().decode(it)).trim() }, signingPassword)
-    sign(publishing.publications)
-}
-
-nexusPublishing {
-    this.repositories {
-        sonatype {
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-        }
+    val signingKey = providers.gradleProperty("signingKey")
+    if (signingKey.isPresent) {
+        useInMemoryPgpKeys(signingKey.get(), providers.gradleProperty("signingPassword").get())
+        sign(publishing.publications)
     }
 }
 
@@ -83,31 +72,21 @@ java {
 }
 
 detekt {
-    source.from(files(rootProject.rootDir))
-    parallel = true
-    buildUponDefaultConfig = true
-}
-
-dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
-}
-
-tasks {
-    fun SourceTask.config() {
+    source.from(fileTree(rootProject.rootDir) {
         include("**/*.kt")
         exclude("**/*.kts")
         exclude("**/resources/**")
         exclude("**/generated/**")
         exclude("**/build/**")
+    })
+    parallel = true
+    autoCorrect = true
+    buildUponDefaultConfig = true
+    reports {
+        sarif.required.set(true)
     }
-    withType<DetektCreateBaselineTask>().configureEach {
-        config()
-    }
-    withType<Detekt>().configureEach {
-        config()
-        autoCorrect = true
-        reports {
-            sarif.required.set(true)
-        }
-    }
+}
+
+dependencies {
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
 }

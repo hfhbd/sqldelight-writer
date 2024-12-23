@@ -1,8 +1,11 @@
 package app.softwork.sqldelightwriter
 
-import java.io.*
-import java.nio.file.*
-import kotlin.test.*
+import java.io.File
+import java.nio.file.Files
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNotNull
 
 class SimpleTest {
     @Test

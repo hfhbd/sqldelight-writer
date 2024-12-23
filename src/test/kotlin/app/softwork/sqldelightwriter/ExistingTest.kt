@@ -1,6 +1,7 @@
 package app.softwork.sqldelightwriter
 
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ExistingTest {
     @Test

@@ -8,8 +8,8 @@ plugins {
     id("app.cash.licensee") version "1.12.0"
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
+testing.suites.named<JvmTestSuite>("test") {
+    useKotlinTest()
 }
 
 kotlin {

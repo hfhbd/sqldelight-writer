@@ -99,13 +99,6 @@ java {
 }
 
 detekt {
-    source.from(fileTree(rootProject.rootDir) {
-        include("**/*.kt")
-        exclude("**/*.kts")
-        exclude("**/resources/**")
-        exclude("**/generated/**")
-        exclude("**/build/**")
-    })
     parallel = true
     autoCorrect = true
     buildUponDefaultConfig = true

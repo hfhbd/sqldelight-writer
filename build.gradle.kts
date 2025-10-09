@@ -5,7 +5,7 @@ plugins {
     id("io.github.hfhbd.mavencentral") version "0.0.23"
     id("io.gitlab.arturbosch.detekt") version "1.23.8"
     id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.18.1"
-    id("app.cash.licensee") version "1.14.0"
+    id("app.cash.licensee") version "1.14.1"
 }
 
 testing.suites.named<JvmTestSuite>("test") {

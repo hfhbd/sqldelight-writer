@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.3.0"
+    kotlin("jvm") version "2.3.20"
     id("maven-publish")
     id("signing")
     id("io.github.hfhbd.mavencentral") version "0.0.23"
